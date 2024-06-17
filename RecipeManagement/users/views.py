@@ -76,7 +76,7 @@ def signUp(request):
             user.save()
             login(request, user, backend="django.contrib.auth.backends.ModelBackend")
             messages.success(request, "You have signed up successfully!")
-            return HttpResponseRedirect(reverse("home-page"))
+            return HttpResponseRedirect(reverse("home"))
         except IntegrityError:
             messages.error(request, "Username already taken.")
             return render(request, "users/register.html")
@@ -106,6 +106,7 @@ def loginPage(request):
             messages.error(request, "Invalid username or password.")
 
         return render(request, "users/login.html")
+    return HttpResponse(render(request, "users/login.html"))
 
 def logoutPage(request):
     logout(request)

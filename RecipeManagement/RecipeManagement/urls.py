@@ -16,10 +16,26 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
+from django.contrib import admin
 from recipies import views as recipies_views
 from users import views as users_views
+from django.views.generic import ListView, DetailView, DeleteView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("recipies/", recipies_views.Recipies, name="recipies"),
+    path("home/", recipies_views.Home, name="home"),
+    path("", users_views.loginPage, name="login"),
+    path("register/", users_views.signUp, name="register"),
+    path("logout/", users_views.logoutPage, name="logout"),
+    path("profile/<str:pk>", users_views.userProfile, name="profile"),
+    path("add-recipe/", recipies_views.createRecipe, name="create-recipe"),
+    path("edit-recipe/<str:pk>/", recipies_views.editRecipe, name="edit-recipe"),
+    path("delete-recipe/<str:pk>/", recipies_views.deleteRecipe, name="delete-recipe"),
+    path("edit-profile", users_views.editProfile, name="edit-profile"),
 ]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
