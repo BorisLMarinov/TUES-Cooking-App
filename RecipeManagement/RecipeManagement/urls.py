@@ -26,14 +26,14 @@ from django.views.generic import ListView, DetailView, DeleteView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("recipies/", recipies_views.Recipies, name="recipies"),
+    path("recipies/", recipies_views.Recipe, name="recipies"),
     path("home/", recipies_views.Home, name="home"),
     path("", users_views.loginPage, name="login"),
     path("register/", users_views.signUp, name="register"),
     path("logout/", users_views.logoutPage, name="logout"),
     path("profile/<str:pk>", users_views.userProfile, name="profile"),
-    path("add-recipe/", recipies_views.createRecipe, name="create-recipe"),
-    path("edit-recipe/<str:pk>/", recipies_views.editRecipe, name="edit-recipe"),
+    path("add-recipe/", recipies_views.createRecipe, name="add-recipe"),
+    path("edit-recipe/<int:pk>/", recipies_views.editRecipe, name="edit-recipe"),
     path("delete-recipe/<str:pk>/", recipies_views.deleteRecipe, name="delete-recipe"),
     path("edit-profile", users_views.editProfile, name="edit-profile"),
 ]

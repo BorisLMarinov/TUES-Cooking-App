@@ -1,0 +1,88 @@
+{% block content %}
+<style>
+    .profile-picture1 {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .profile-picture1 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .navbar-dark.bg-body-tertiary-dark {
+        background-color: #ff8000 !important;
+    }
+    .navbar-brand {
+        background-color: #ff8000 !important;
+        color: rgb(0, 0, 0) !important;
+    }
+    .navbar.bg-body-tertiary.bg-dark {
+        background-color: #ff8000 !important;
+    }   
+    
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary-dark bg-dark fixed-top">
+  
+  <div class="container-fluid">
+    <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      {% if request.user.is_authenticated %}
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}" style="color: black; font-weight: bold;">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'recipies' %}" style="color: black; font-weight: bold;">Recipies</a>
+        </li>
+    </ul>
+    <nav class="navbar bg-body-tertiary bg-dark" >
+        <div class="container-fluid" >
+            <span class="navbar-brand mb-0 h1" >Recipie Manager</span>
+        </div>
+    </nav>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="d-flex align-items-center">
+                        <div class="profile-picture1 me-2">
+                            <img class="img-fluid" alt="avatar" src="{{user.avatar.url}}">
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: black; font-weight: bold;"">{{user.username}}</h5>
+                        </div>
+                    </div>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{%url 'profile' user.id %} "style="color: black; font-weight: bold;">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}" style="color: black; font-weight: bold;">Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+    
+    {% endif %}
+  </div>
+</nav>
+<br>
+<br>
+<br>
+<br>
+{% if messages %} 
+    {% for message in messages %}
+    <div class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 5rem; right: 10px;">
+        <div class="d-flex">
+            <div class="toast-body">
+                <li style="font-size: larger;">{{ message }}</li>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+{% endblock %}

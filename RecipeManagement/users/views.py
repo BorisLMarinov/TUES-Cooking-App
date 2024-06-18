@@ -108,18 +108,20 @@ def loginPage(request):
         return render(request, "users/login.html")
     return HttpResponse(render(request, "users/login.html"))
 
+
 def logoutPage(request):
     logout(request)
     return redirect("login")
 
+
 @login_required(login_url="login")
 def editProfile(request):
-    user=request.user
+    user = request.user
     form = EditUserForm(instance=user)
     if request.method == "POST":
-        form = EditUserForm(request.POST,request.FILES, instance=user)
+        form = EditUserForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             messages.success(request, "Profile updated successfully!")
             return redirect("profile", pk=user.id)
-    return render(request, 'users/editprofile.html',{'form':form})
+    return render(request, "users/editprofile.html", {"form": form})

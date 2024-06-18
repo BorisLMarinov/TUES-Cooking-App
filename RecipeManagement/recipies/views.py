@@ -16,14 +16,14 @@ def Home(request):
 
 
 @login_required(login_url="login")
-def Recipies(request):
+def Recipe(request):
     recipies = Recipies.objects.filter(user=request.user)
     return render(request, "recipies/recipies.html", {"recipies": recipies})
 
 
 @login_required(login_url="login")
 def createRecipe(request):
-    form = RecipeForm
+    form = RecipeForm()
     if request.method == "POST":
         Recipies.objects.create(
             user=request.user,
@@ -51,7 +51,7 @@ def editRecipe(request, pk):
     else:
         form = RecipeForm(instance=recipies)
 
-    return render(request, "recipies/editrecipie.html", {"form": form})
+    return render(request, "recipies/editrecipe.html", {"form": form})
 
 
 @login_required(login_url="login")
