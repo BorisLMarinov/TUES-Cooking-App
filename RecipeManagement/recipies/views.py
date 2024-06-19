@@ -12,7 +12,7 @@ def Home(request):
     if not request.user.is_authenticated:
         return redirect("login")
     else:
-        return render(request, "recipies/home.html")
+        return render(request, "recipies/home.html",status=200)
 
 
 @login_required(login_url="login")
@@ -34,7 +34,7 @@ def createRecipe(request):
         )
         return redirect("recipies")
 
-    return render(request, "recipies/addrecipe.html", {"form": form})
+    return render(request, "recipies/addrecipe.html", {"form": form},status=201)
 
 
 @login_required(login_url="login")
@@ -50,10 +50,7 @@ def editRecipe(request, pk):
             return redirect("recipies")
     else:
         form = RecipeForm(instance=recipies)
-
-    return render(request, "recipies/editrecipe.html", {"form": form})
-
-
+    return render(request, "recipies/editrecipe.html", {"form": form},status=201)
 @login_required(login_url="login")
 def deleteRecipe(request, pk):
 
@@ -65,4 +62,4 @@ def deleteRecipe(request, pk):
         recipies.delete()
         return redirect("recipies")
 
-    return render(request, "recipies/deleterecipe.html", {"recipies": recipies})
+    return render(request, "recipies/deleterecipe.html", {"recipies": recipies},status=200)

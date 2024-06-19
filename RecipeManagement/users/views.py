@@ -13,7 +13,7 @@ from django.contrib import messages
 @login_required(login_url="login")
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
-    return render(request, "users/profile.html", {"user": user})
+    return render(request, "users/profile.html", {"user": user},status=200)
 
 
 def signUp(request):
@@ -81,7 +81,7 @@ def signUp(request):
             messages.error(request, "Username already taken.")
             return render(request, "users/register.html")
     else:
-        return render(request, "users/register.html")
+        return render(request, "users/register.html",status=201)
 
 
 def loginPage(request):
@@ -106,7 +106,7 @@ def loginPage(request):
             messages.error(request, "Invalid username or password.")
 
         return render(request, "users/login.html")
-    return HttpResponse(render(request, "users/login.html"))
+    return HttpResponse(render(request, "users/login.html",status=200))
 
 
 def logoutPage(request):
@@ -124,4 +124,4 @@ def editProfile(request):
             form.save()
             messages.success(request, "Profile updated successfully!")
             return redirect("profile", pk=user.id)
-    return render(request, "users/editprofile.html", {"form": form})
+    return render(request, "users/editprofile.html", {"form": form},status=200)
